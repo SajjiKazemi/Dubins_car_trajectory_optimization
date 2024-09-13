@@ -42,5 +42,9 @@ F(t, x, u, p) = begin
     return zeros(3, 1)
 end
 
+## Use the toolbox API function for defining the dynamics
+wrap(func) = (t, k, x, u, p, pbm) -> func(t, x, u, p)
+problem_set_dynamics!(pbm, wrap(f), wrap(A), wrap(B), wrap(F))
+
 
 
