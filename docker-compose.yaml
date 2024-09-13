@@ -1,6 +1,9 @@
 version: '3.1'
 services:
   env:
+    image: julia_env
+    working_dir: /project
+    container_name: dublin
     build: 
       context: .
       dockerfile: ./docker/Dockerfile
