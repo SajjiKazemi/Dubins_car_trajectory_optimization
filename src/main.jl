@@ -83,3 +83,13 @@ C(t, x, u, p) = reshape(2*E_xy'*(c_0 - E_xy*x), 1, 3);
 alg = :ptr
 wrap(func) = (t, k, x, u, p, pbm) -> func(t, x, u, p)
 problem_set_s!(pbm, alg, wrap(s), wrap(C))
+
+## Define the objective function
+Q(x, u, p) = u'*u;
+
+## Define the cost using the toolbox API function as follows:
+## problem_set_terminal_cost!
+## problem_set_running_cost!
+wrap(func) = (t, k, x, u, p, pbm) -> func(x, u, p)
+problem_set_running_cost!(pbm, alg, wrap(Q))
+ 
