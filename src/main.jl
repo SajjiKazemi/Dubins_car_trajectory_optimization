@@ -72,7 +72,7 @@ r_0 = 0.35
 car_width = 0.1
 delta_r_theta = car_width/2
 E_xy = [1 0 0; 0 1 0]
-s(t, x, u, p) = [(r_0 + delta_r_theta)^2 - (E_xy*(x - c_0))'*(E_xy*(x - c_0))];
+s(t, x, u, p) = [(r_0 + delta_r_theta)^2 - (E_xy*x - c_0)'*(E_xy*x - c_0)];
 
 ## Define the Jacobian of the nonconvex obstacle constraint
 C(t, x, u, p) = reshape(2*E_xy'*(c_0 - E_xy*x), 1, 3);
@@ -80,7 +80,7 @@ C(t, x, u, p) = reshape(2*E_xy'*(c_0 - E_xy*x), 1, 3);
 ## Use the toolbox API function which is problem_set_s! for defining the nonconvex obstacle constraint
 # We should also determine the SCP algorithm type
 #alg = :scvx
-alg = :ptr
+alg = :ptr;
 wrap(func) = (t, k, x, u, p, pbm) -> func(t, x, u, p)
 problem_set_s!(pbm, alg, wrap(s), wrap(C))
 
@@ -102,6 +102,7 @@ problem_set_guess!(pbm, (N, pbm) -> begin
     x = state_guess(N)
     u = input_guess(N)
     p = zeros(1)
+    return x, u, p
 end)
 
 ## Configure the solver
@@ -148,3 +149,10 @@ end;
 #     sol, history = SCvx.solve(scvx_pbm)
 # end;
 
+## Trajectory plots
+
+include("utils/plot.jl")
+plot_trajectory()
+plt.savefig("../outputs/ptr-solution.svg", bbox_inches="tight")
+plt.savefig("../outputs/ptr-solution.png", bbox_inches="tight")
+plt.close()
