@@ -103,3 +103,48 @@ problem_set_guess!(pbm, (N, pbm) -> begin
     u = input_guess(N)
     p = zeros(1)
 end)
+
+## Configure the solver
+# PTR parameters
+N, Nsub = 11, 10
+iter_max = 30
+disc_method = FOH
+wvc, wtr = 1e3, 1e0
+feas_tol = 5e-3
+eps_abs, eps_rel = 1e-5, 1e-3
+q_tr = Inf
+q_exit = Inf
+solver, solver_options = ECOS, Dict("verbose" => 0)
+pars = PTR.Parameters(N, Nsub, iter_max, disc_method, wvc, wtr, eps_abs,
+                      eps_rel, feas_tol, q_tr, q_exit, solver, solver_options);
+if alg == :ptr
+    ptr_pbm = PTR.create(pars, pbm)
+    sol, history = PTR.solve(ptr_pbm)
+end;
+
+# SCvx parameters
+# N, Nsub = 11, 10
+# iter_max = 30
+# disc_method = FOH
+# lambda = 1000.0
+# rho_0 = 0.0
+# rho_1 = 0.1
+# rho_2 = 0.7
+# beta_sh = 2.0
+# beta_gr = 2.0
+# eta_init = 1.0
+# eta_lb = 1e-3
+# eta_ub = 10.0
+# feas_tol = 5e-3
+# eps_abs, eps_rel = 1e-5, 1e-3
+# q_tr = Inf
+# q_exit = Inf
+# solver, solver_options = ECOS, Dict("verbose" => 0)
+# pars = SCvx.Parameters(N, Nsub, iter_max, disc_method, lambda, rho_0, rho_1, rho_2,
+#                        beta_sh, beta_gr, eta_init, eta_lb, eta_ub, eps_abs, eps_rel,
+#                        feas_tol, q_tr, q_exit, solver, solver_options);
+# if alg == :scvx
+#     scvx_pbm = SCvx.create(pars, pbm)
+#     sol, history = SCvx.solve(scvx_pbm)
+# end;
+
