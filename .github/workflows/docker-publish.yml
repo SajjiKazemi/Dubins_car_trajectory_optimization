@@ -1,0 +1,21 @@
+name: Docker
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+        - 'docker/**'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag sajjikazemi/Dubins_car_trajectory_optimization:$(date +%s)
+    - name: Log in to Docker Hub
+      run: docker login -u "${{ secrets.DOCKER_HUB_TOKEN }}" --password-stdin
+    - name: Push image to Docker Hub
+      run: docker push sajjikazemi/Dubin_car_trajectory_optimization:$(date +%s)
