@@ -92,4 +92,14 @@ Q(x, u, p) = u'*u;
 ## problem_set_running_cost!
 wrap(func) = (t, k, x, u, p, pbm) -> func(x, u, p)
 problem_set_running_cost!(pbm, alg, wrap(Q))
- 
+
+## Define the initial guess
+state_guess(N) = straightline_interpolate(x_0, x_f, N)
+input_guess(N) = straightline_interpolate(zeros(2), zeros(2), N);
+
+## Use the toolbox API function which is problem_set_guess! for defining the initial guess
+problem_set_guess!(pbm, (N, pbm) -> begin
+    x = state_guess(N)
+    u = input_guess(N)
+    p = zeros(1)
+end)
