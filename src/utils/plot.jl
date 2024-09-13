@@ -85,10 +85,10 @@ function plot_trajectory()
             zorder=5)
 
     # plt.autoscale()
-    # fig.savefig("media/p3_ptr_traj_forward.png", bbox_inches="tight")
-    # fig.savefig("media/p3_scvx_traj_forward.png", bbox_inches="tight")
-    # fig.savefig("media/p3_ptr_traj_reverse.png", bbox_inches="tight")
-    # fig.savefig("media/p3_scvx_traj_reverse.png", bbox_inches="tight")
+    # fig.savefig("../outputs/ptr_traj_forward.png", bbox_inches="tight")
+    # fig.savefig("../outputs/scvx_traj_forward.png", bbox_inches="tight")
+    # fig.savefig("../outputs/ptr_traj_reverse.png", bbox_inches="tight")
+    # fig.savefig("../outputs/scvx_traj_reverse.png", bbox_inches="tight")
 
     # plt.show()
     ;
