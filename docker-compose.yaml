@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   env:
-    image: julia_env
+    image: sajjikazemi/scptoolbox:1.0.0
     working_dir: /project
     container_name: dublin
     build: 
